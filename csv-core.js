@@ -29,7 +29,7 @@ function detectDelimiter(text) {
   let best = ',', score = -1;
   for (const sep of [',', ';', '\t']) {
     try {
-      const rows = parseCSV(text, sep).slice(0, 20);
+      const rows = parseCSV(text, sep).filter(row => row.some(value => value.trim() !== '')).slice(0, 20);
       const width = rows[0]?.length || 1;
       const current = width > 1 ? width * rows.filter(r => r.length === width).length : 0;
       if (current > score) { best = sep; score = current; }
